@@ -1,6 +1,6 @@
 (ns clojure-ttt.human-player-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.human-player :refer :all]))
+            [clojure-ttt.ui.human-player :refer :all]))
 
 (def failing-validator (constantly nil))
 (def passing-validator (constantly true))

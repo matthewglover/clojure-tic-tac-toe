@@ -1,4 +1,4 @@
-(ns clojure-ttt.human-player)
+(ns clojure-ttt.ui.human-player)
 
 (def str-move-request "Enter your move: ")
 
