@@ -5,13 +5,19 @@
 
 (def square-colours {:x colours/blue :o colours/green})
 
-(defn convert-value-symbol-to-string [value]
+(defn- add-row-dividers [row]
+  (string/join "|" row))
+
+(defn- pad-square [formatted-value]
+  (str " " formatted-value " "))
+
+(defn- convert-value-symbol-to-string [value]
   (string/upper-case (name value)))
-(defn format-square-value [value]
+
+(defn- format-square-value [value]
   (str (value square-colours)
        (convert-value-symbol-to-string value)
        colours/reset))
-
 
 (defn format-square-data [[number value]]
   (if value
@@ -22,7 +28,7 @@
   (->> moves
        board/convert-to-board-data
        (map format-square-data)
-       (map #(str " " % " "))
+       (map pad-square)
        (partition 3)
-       (map #(string/join "|" %))
+       (map add-row-dividers)
        (interpose "------------")))
