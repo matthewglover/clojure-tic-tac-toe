@@ -1,5 +1,8 @@
-(ns clojure-ttt.core)
+(ns clojure-ttt.core
+  (:require [clojure-ttt.ui.colours :as colours]))
+
 
 (defn -main
   [& args]
-  (println "Hello World"))
+  (println (colours/colourize colours/blue "Hello World")))
+
