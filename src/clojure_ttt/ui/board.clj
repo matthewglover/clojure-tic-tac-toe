@@ -31,4 +31,5 @@
        (map pad-square)
        (partition 3)
        (map add-row-dividers)
-       (interpose "------------")))
+       (interpose "------------")
+       (string/join "\n")))

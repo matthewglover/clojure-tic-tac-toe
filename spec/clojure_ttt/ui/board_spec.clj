@@ -20,11 +20,11 @@
 (describe "converts moves to string representation of board"
   (context "empty board"
     (it "formats empty board"
-      (should= '(" 1 | 2 | 3 " "------------" " 4 | 5 | 6 " "------------" " 7 | 8 | 9 ")
+      (should= (clojure.string/join "\n" [" 1 | 2 | 3 " "------------" " 4 | 5 | 6 " "------------" " 7 | 8 | 9 "])
                (format-board []))))
 
   (context "with moves"
     (it "formats squares properly"
-      (should= [(str  " " colours/green "O" colours/reset " | " colours/blue "X" colours/reset " | 3 ") 
-                 "------------" " 4 | 5 | 6 " "------------" " 7 | 8 | 9 "]
+      (should= (clojure.string/join "\n" [(str  " " colours/green "O" colours/reset " | " colours/blue "X" colours/reset " | 3 ") 
+                 "------------" " 4 | 5 | 6 " "------------" " 7 | 8 | 9 "])
                (format-board [2 1])))))
