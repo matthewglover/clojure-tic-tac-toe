@@ -2,7 +2,7 @@
   (:require [speclj.core :refer :all]
             [clojure-ttt.ui.human-player :refer :all]))
 
-(def test-moves '(1 2 3))
+(def test-moves [1 2 3])
 
 (describe "get-human-move"
   (around [it]

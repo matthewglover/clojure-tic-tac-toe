@@ -14,11 +14,9 @@
 
 (defn- prompt-for-move [input-validator]
   (let [user-input (get-user-input input-validator)]
-    (or
-      user-input
-      (do 
-        (print-invalid-move-message) 
-        (prompt-for-move input-validator)))))
+    (or user-input
+        (do (print-invalid-move-message)
+            (prompt-for-move input-validator)))))
 
 (defn- is-free-square [moves square]
   (not (some #(= square %) moves)))
@@ -27,9 +25,8 @@
   (re-matches #"^\d$" input))
 
 (defn- input-validator [moves input]
-  (and 
-    (is-parsable-integer input)
-    (is-free-square moves (Integer/parseInt input))))
+  (and (is-parsable-integer input) 
+       (is-free-square moves (Integer/parseInt input))))
 
 (defn- print-move-request []
   (print request-move-message)
