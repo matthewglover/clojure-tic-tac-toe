@@ -2,44 +2,32 @@
   (:require [speclj.core :refer :all]
             [clojure-ttt.ui.human-player :refer :all]))
 
-(def failing-validator (constantly nil))
-(def passing-validator (constantly true))
-
-(describe "prompt-for-move"
-          (it "prints move request prompt"
-              (with-in-str "\n"
-                        (should= str-move-request
-                          (with-out-str
-                            (prompt-for-move failing-validator)))))
-
-          (context "with a valid input"
-              (it "returns square number as an integer"
-                       (with-in-str "5\n"
-                                (should= 5
-                                  (prompt-for-move passing-validator)))))
-          
-          (context "with invalid input"
-              (it "returns nil"
-                       (with-in-str "failing input\n"
-                                (should= nil
-                                  (prompt-for-move failing-validator))))))
-
 (def test-moves '(1 2 3))
 
-(describe "input-validator"
-          (context "non integer input"
-                   (it "returns false"
-                       (should-not
-                         (input-validator test-moves "non integer text"))))
-
-          (context "move taken input"
-                   (it "returns false"
-                       (should-not
-                         (input-validator test-moves "1")))))
-
 (describe "get-human-move"
-          (context "human inputs valid move"
-              (it "returns move as an integer"
-                        (with-redefs [prompt-for-move (constantly 1)]
-                            (should= 1
-                                  (get-human-move test-moves))))))
+  (around [it]
+    (with-out-str (it)))
+
+  (it "prints move request prompt"
+    (with-in-str "5\n"
+      (should= request-move-message
+        (with-out-str
+          (get-human-move test-moves)))))
+
+  (context "user enters valid move on first try"
+    (it "returns square number as an integer"
+      (with-in-str "5\n"
+        (should= 5
+          (get-human-move test-moves)))))
+  
+  (context "user enters invalid moves"
+    (it "returns first valid input"
+      (with-in-str "failing input\n2\n4\n"
+        (should= 4 
+          (get-human-move test-moves))))
+      
+    (it "alerts user of invalid move"
+      (with-in-str "failing input\n4\n"
+        (should-contain invalid-move-message
+          (with-out-str
+            (get-human-move test-moves)))))))
