@@ -1,6 +1,6 @@
-(ns clojure-ttt.game-spec
+(ns clojure-ttt.game.status-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.game :refer :all]))
+            [clojure-ttt.game.status :refer :all]))
 
 (def empty-moves [])
 (def drawing-moves [2 1 4 3 5 6 7 8 9])

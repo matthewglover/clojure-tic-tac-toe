@@ -1,4 +1,6 @@
-(ns clojure-ttt.ui.human-player)
+(ns clojure-ttt.ui.human-player
+  (:require [clojure-ttt.ui.board :as board-ui]
+            [clojure-ttt.ui.helpers :as ui-helpers]))
 
 (def request-move-message "Enter your move: ")
 (def invalid-move-message "Oops! Invalid move, try again: ")
@@ -33,5 +35,7 @@
   (flush))
 
 (defn get-human-move [moves]
+  (ui-helpers/clear-screen)
+  (board-ui/print-board moves)
   (print-move-request)
   (prompt-for-move (partial input-validator moves)))

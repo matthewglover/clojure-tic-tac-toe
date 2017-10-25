@@ -1,4 +1,4 @@
-(ns clojure-ttt.game
+(ns clojure-ttt.game.status
   (:require [clojure-ttt.board.data-converters :as data-converters]))
 
 (defn get-first-winning-line [non-empty-lines]
