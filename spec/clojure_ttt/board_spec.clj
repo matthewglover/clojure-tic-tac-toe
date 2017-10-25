@@ -45,4 +45,9 @@
   (context "partial board"
     (it "adds new move to end of board"
       (should= [2 1 3 4]
-               (update-moves [2 1 3] 4)))))
+               (update-moves [2 1 3] 4))))
+
+  (context "partial board"
+    (it "doesnt add move if already made"
+      (should= [2 1 3]
+               (update-moves [2 1 3] 3)))))
