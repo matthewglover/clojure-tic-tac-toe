@@ -33,3 +33,6 @@
        (map add-row-dividers)
        (interpose "------------")
        (string/join "\n")))
+
+(defn print-board [moves]
+  (println (format-board moves)))

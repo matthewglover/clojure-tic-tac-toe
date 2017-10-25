@@ -28,3 +28,8 @@
       (should= (clojure.string/join "\n" [(str  " " colours/green "O" colours/reset " | " colours/blue "X" colours/reset " | 3 ") 
                  "------------" " 4 | 5 | 6 " "------------" " 7 | 8 | 9 "])
                (format-board [2 1])))))
+
+(describe "format-board"
+  (it "prints moves as a board"
+    (should= (str (format-board [2 1]) "\n")
+             (with-out-str (print-board [2 1])))))
