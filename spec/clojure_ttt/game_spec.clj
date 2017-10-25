@@ -5,31 +5,43 @@
 (def empty-moves [])
 (def drawing-moves [2 1 4 3 5 6 7 8 9])
 (def x-winning-row [1 4 2 5 3])
+(def o-winning-row [9 1 4 2 5 3])
 
 (describe "winner?"
   (context "empty board"
-    (it "is false"
+    (it "is falsy"
       (should-not (winner? empty-moves))))
 
   (context "drawn board"
-    (it "is false"
+    (it "is falsy"
       (should-not (winner? drawing-moves))))
 
   (context "x winning board"
-    (xit "is :x"
+    (it "is :x"
       (should= :x
-               (winner? x-winning-row)))))
+               (winner? x-winning-row))))
 
+  (context "o winning board"
+    (it "is :o"
+      (should= :o
+               (winner? o-winning-row)))))
 
-(describe "run-game"
-  (context "X wins"
-    (xit "notifies x wins"
-      (with-in-str "1\n4\n2\n5\n3\n"
-        (should-contain "X Wins!"
-                        (with-out-str (run-game))))))
+(describe "board-full?"
+  (it "is false for empty board"
+    (should-not (board-full? empty-moves)))
 
-  (context "O wins"
-    (xit "notifies o wins"
-      (with-in-str "9\n1\n4\n2\n5\n3\n"
-        (should-contain "O Wins!"
-                        (with-out-str (run-game)))))))
+  (it "is true for full board"
+    (should (board-full? drawing-moves))))
+
+(describe "over?"
+  (it "is false for empty board"
+    (should-not (over? empty-moves)))
+
+  (it "is true for x-winning board"
+    (should (over? x-winning-row)))
+
+  (it "is true for o-winning-row board"
+    (should (over? o-winning-row)))
+
+  (it "is true for drawn board"
+    (should (over? drawing-moves))))

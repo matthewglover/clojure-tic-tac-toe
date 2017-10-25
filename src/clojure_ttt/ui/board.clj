@@ -11,7 +11,7 @@
 (defn- pad-square [formatted-value]
   (str " " formatted-value " "))
 
-(defn- convert-value-symbol-to-string [value]
+(defn convert-value-symbol-to-string [value]
   (string/upper-case (name value)))
 
 (defn- format-square-value [value]
