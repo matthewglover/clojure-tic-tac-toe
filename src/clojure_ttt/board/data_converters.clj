@@ -1,16 +1,6 @@
-(ns clojure-ttt.board)
+(ns clojure-ttt.board.data-converters)
 
 (def board-squares (range 1 10))
-
-(defn- get-x-or-o [moves]
-  (let [total-moves (count moves)]
-    (if (odd? total-moves)
-      :x
-      :o)))
-
-(defn get-last-player [moves]
-  (if-not (empty? moves)
-    (get-x-or-o moves)))
 
 (defn- remove-indices-from-moves [moves-with-indices]
   (map #(last %) moves-with-indices))
@@ -27,11 +17,8 @@
        (filter-indexed-moves predicate)
        remove-indices-from-moves))
 
-(defn- get-o-moves [moves]
-  (filter-moves-by-index odd? moves))
-
-(defn- get-x-moves [moves]
-  (filter-moves-by-index even? moves))
+(def get-o-moves (partial filter-moves-by-index odd?))
+(def get-x-moves (partial filter-moves-by-index even?))
 
 (defn- square-in? [square moves]
   (some #(= % square) moves))
@@ -54,8 +41,3 @@
 
 (defn convert-to-board-data [moves]
   (map (partial convert-to-square-data moves) board-squares))
-
-(defn update-moves [moves move]
-  (if-not (some #(= move %) moves)
-    (conj moves move)
-    moves))

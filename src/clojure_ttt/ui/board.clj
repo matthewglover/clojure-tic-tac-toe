@@ -1,6 +1,6 @@
 (ns clojure-ttt.ui.board
   (:require [clojure.string :as string] 
-            [clojure-ttt.board :as board]
+            [clojure-ttt.board.data-converters :as data-converters]
             [clojure-ttt.ui.colours :as colours]))
 
 (def square-colours {:x colours/blue :o colours/green})
@@ -26,7 +26,7 @@
 
 (defn format-board [moves]
   (->> moves
-       board/convert-to-board-data
+       data-converters/convert-to-board-data
        (map format-square-data)
        (map pad-square)
        (partition 3)
