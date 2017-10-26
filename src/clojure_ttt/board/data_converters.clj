@@ -1,6 +1,5 @@
 (ns clojure-ttt.board.data-converters)
 
-
 (defn- remove-indices-from-moves [moves-with-indices]
   (map #(last %) moves-with-indices))
 
@@ -53,17 +52,17 @@
   (partition 3 board-values))
 
 (defn convert-board-values-to-columns [board-values]
-  (map #(take-nth 3 (subvec board-values %)) (range 0 3)))
+  (let [column-start-indices (range 0 3)]
+    (map #(take-nth 3 (subvec board-values %)) column-start-indices)))
 
-(defn convert-board-values-to-tl-diagonal [board-values]
-  (map #(nth board-values %) (range 0 9 4)))
-
-(defn convert-board-values-to-tr-diagonal [board-values]
-  (map #(nth board-values %) (range 2 7 2)))
+(defn get-board-values-at-indices [board-values indices]
+  (map #(nth board-values %) indices))
 
 (defn convert-board-values-to-diagonals [board-values]
-  [(convert-board-values-to-tl-diagonal board-values)
-   (convert-board-values-to-tr-diagonal board-values)])
+  (let [tl-diagonal-indices (range 0 9 4)
+        tr-diagonal-indices (range 2 7 2)]
+    [(get-board-values-at-indices board-values tl-diagonal-indices)
+     (get-board-values-at-indices board-values tr-diagonal-indices)]))
 
 (defn convert-board-values-to-lines [board-values]
   (mapcat identity [(convert-board-values-to-rows board-values)
@@ -74,3 +73,4 @@
   (->> moves
        convert-to-board-values
        convert-board-values-to-lines))
+
