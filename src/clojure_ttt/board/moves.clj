@@ -15,4 +15,3 @@
   (if-not (some #(= move %) moves)
     (conj moves move)
     moves))
-

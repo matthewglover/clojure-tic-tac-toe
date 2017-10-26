@@ -10,7 +10,7 @@
 
   (it "prints move request prompt"
     (with-in-str "5\n"
-      (should= request-move-message
+      (should-contain request-move-message
         (with-out-str
           (get-human-move test-moves)))))
 
