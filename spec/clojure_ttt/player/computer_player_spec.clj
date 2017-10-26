@@ -1,6 +1,6 @@
-(ns clojure-ttt.game.computer-player-spec
+(ns clojure-ttt.player.computer-player-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.game.computer-player :refer :all]))
+            [clojure-ttt.player.computer-player :refer :all]))
 
 (describe "get-move"
   (it "returns 1 on first move"

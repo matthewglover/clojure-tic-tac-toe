@@ -32,6 +32,6 @@
   (print request-move-message)
   (flush))
 
-(defn get-human-move [moves]
+(defn get-move [moves]
   (print-move-request)
   (prompt-for-move (partial input-validator moves)))
