@@ -18,3 +18,8 @@
   (if (winner? moves)
     (print-winning-message moves)
     (print-drawing-message)))
+
+(defn print-last-move [moves]
+  (clear-screen)
+  (print-board moves))
+
