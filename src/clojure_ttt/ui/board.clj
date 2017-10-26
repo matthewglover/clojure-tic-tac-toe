@@ -1,9 +1,8 @@
 (ns clojure-ttt.ui.board
   (:require [clojure.string :as string] 
             [clojure-ttt.board.data-converters :as data-converters]
-            [clojure-ttt.ui.colours :as colours]))
-
-(def square-colours {:x colours/blue :o colours/green})
+            [clojure-ttt.ui.colours :as colours]
+            [clojure-ttt.board.moves :refer [last-move-value]]))
 
 (defn- add-row-dividers [row]
   (string/join "|" row))
@@ -14,20 +13,26 @@
 (defn convert-value-symbol-to-string [value]
   (string/upper-case (name value)))
 
-(defn- format-square-value [value]
-  (str (value square-colours)
+(defn get-square-colour [value is-last-move]
+  (let [square-colours {:x colours/blue :o colours/green}] 
+    (if is-last-move
+      colours/yellow
+      (value square-colours))))
+
+(defn- format-square-value [value is-last-move]
+  (str (get-square-colour value is-last-move)
        (convert-value-symbol-to-string value)
        colours/reset))
 
-(defn format-square-data [[number value]]
+(defn format-square-data [last-move [number value]]
   (if value
-    (format-square-value value)
+    (format-square-value value (= last-move number))
     (str number)))
 
 (defn format-board [moves]
   (->> moves
        data-converters/convert-to-board-data
-       (map format-square-data)
+       (map (partial format-square-data (last moves)))
        (map pad-square)
        (partition 3)
        (map add-row-dividers)

@@ -1,6 +1,5 @@
 (ns clojure-ttt.board.data-converters)
 
-(def board-squares (range 1 10))
 
 (defn- remove-indices-from-moves [moves-with-indices]
   (map #(last %) moves-with-indices))
@@ -40,8 +39,9 @@
   [square (get-value-of-square square moves)])
 
 (defn convert-to-board-data [moves]
-  (map (partial convert-to-square-data moves) board-squares))
-
+  (let [board-squares (range 1 10)
+        convert-square (partial convert-to-square-data moves)]
+    (map convert-square board-squares)))
 
 (defn convert-to-board-values [moves]
   (->> moves

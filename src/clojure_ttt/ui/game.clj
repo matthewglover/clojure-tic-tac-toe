@@ -1,10 +1,10 @@
 (ns clojure-ttt.ui.game
-  (:require [clojure-ttt.ui.board :as board-ui]
-            [clojure-ttt.ui.helpers :as ui-helpers]
-            [clojure-ttt.game.status :as game-status]))
+  (:require [clojure-ttt.ui.board :refer [convert-value-symbol-to-string print-board]]
+            [clojure-ttt.ui.helpers :refer [clear-screen]]
+            [clojure-ttt.game.status :refer [winner?]]))
 
 (defn- format-winning-message [moves]
-  (str (board-ui/convert-value-symbol-to-string (game-status/winner? moves)) " Wins!"))
+  (str (convert-value-symbol-to-string (winner? moves)) " Wins!"))
 
 (defn print-winning-message [moves]
   (println (format-winning-message moves)))
@@ -13,8 +13,8 @@
   (println "It's a draw!"))
 
 (defn print-result [moves]
-  (ui-helpers/clear-screen)
-  (board-ui/print-board moves)
-  (if (game-status/winner? moves)
+  (clear-screen)
+  (print-board moves)
+  (if (winner? moves)
     (print-winning-message moves)
     (print-drawing-message)))
