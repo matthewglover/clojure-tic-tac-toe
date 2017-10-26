@@ -1,7 +1,7 @@
 (ns clojure-ttt.ui.board
   (:require [clojure.string :refer [join upper-case]] 
             [clojure-ttt.board.data-converters :refer [convert-to-board-data]]
-            [clojure-ttt.ui.colours :refer [blue green yellow]))
+            [clojure-ttt.ui.colours :refer [blue green yellow reset]]))
 
 (defn- add-row-dividers [row]
   (join "|" row))
@@ -21,7 +21,7 @@
 (defn- format-square-value [value is-last-move]
   (str (get-square-colour value is-last-move)
        (convert-value-symbol-to-string value)
-       colours/reset))
+       reset))
 
 (defn format-square-data [last-move [square-number square-value]]
   (if square-value
