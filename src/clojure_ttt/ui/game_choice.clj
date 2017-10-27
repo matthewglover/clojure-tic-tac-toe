@@ -1,5 +1,6 @@
 (ns clojure-ttt.ui.game-choice
-  (:require [clojure.string :refer [capitalize]]))
+  (:require [clojure.string :refer [capitalize]]
+            [clojure-ttt.ui.helpers :refer [clear-screen]]))
 
 (def game-types [{:x :human :o :human}
                  {:x :human :o :computer}
@@ -36,6 +37,7 @@
           (println (format-game-type game-number game-type))))
 
 (defn get-game-choice []
+  (clear-screen)
   (print-game-choices)
   (loop [game-choice (choose-game)]
     (if game-choice

@@ -28,4 +28,16 @@
              (it "Plays Human vs Human game"
                  (should-contain "X Wins!"
                                  (with-out-str (with-in-str "1\n1\n4\n2\n5\n3\n"
-                                   (run-app)))))))
+                                   (run-app))))))
+
+    (context "Don't play again"
+             (it "Offers play again - exits if not selected"
+                 (should-contain "Play again? [y/n]: "
+                                 (with-out-str (with-in-str "1\n1\n4\n2\n5\n3\nn\n"
+                                   (run-app))))))
+
+    (context "Play again"
+             (it "Offers play again - plays again"
+                 (let [output (with-out-str (with-in-str "1\n1\n4\n2\n5\n3\ny\n1\n1\n4\n2\n5\n3\nn\n"
+                        (run-app)))]
+                   (should-contain #"(?s)Play again\? \[y/n]:.*Choose game type:" output)))))

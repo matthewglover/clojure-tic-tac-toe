@@ -19,3 +19,10 @@
     (print-winning-message moves)
     (print-drawing-message)))
 
+(defn print-play-again-message []
+  (print "Play again? [y/n]: ")
+  (flush))
+
+(defn play-again? []
+  (print-play-again-message)
+  (= "y" (read-line)))
