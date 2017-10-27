@@ -2,7 +2,7 @@
   (:require [clojure-ttt.player :refer [get-move]]
             [clojure-ttt.ui.board :refer [print-board]]
             [clojure-ttt.ui.helpers :refer [clear-screen]]
-            [clojure-ttt.ui.game :refer [print-result]]
+            [clojure-ttt.ui.game :refer [print-result play-again?]]
             [clojure-ttt.ui.game-choice :refer [get-game-choice]]
             [clojure-ttt.board.moves :refer [update-moves]])
   (:require clojure-ttt.game.status)
@@ -22,6 +22,7 @@
         (recur updated-state)
         (print-result (:moves updated-state))))))
 
-
 (defn run-app []
-  (run-game (get-game-choice)))
+  (run-game (get-game-choice))
+  (if (play-again?)
+    (run-app)))
