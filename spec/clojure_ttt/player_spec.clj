@@ -5,6 +5,9 @@
             [clojure-ttt.player.human-player :as human-player]))
 
 (describe "player/get-move"
+  (around [it]
+    (with-out-str (it)))
+
   (it "dispatches first move to computer player"
     (should= 5
              (with-redefs [computer-player/get-move (constantly 5)]
