@@ -29,24 +29,6 @@
     (should= [[:o :x :x] [:x :x :o] [:o :o :x]]
              (convert-board-values-to-columns [:o :x :o :x :x :o :x :o :x]))))
 
-(describe "convert-board-values-to-tl-diagonal"
-  (it "complete board to diagonals"
-    (should= [:o :x :x]
-             (convert-board-values-to-tl-diagonal [:o :x :o :x :x :o :x :o :x])))
-
-  (it "complete board to diagonals"
-    (should= [:o :x nil]
-             (convert-board-values-to-tl-diagonal [:o :x :o :x :x :o :x :o nil]))))
-
-(describe "convert-board-values-to-tr-diagonal"
-  (it "complete board to diagonals"
-    (should= [:o :x :x]
-             (convert-board-values-to-tr-diagonal [:o :x :o :x :x :o :x :o :x])))
-
-  (it "complete board to diagonals"
-    (should= [:o nil :x]
-             (convert-board-values-to-tr-diagonal [:o :x :o :x nil :o :x :o nil]))))
-
 (describe "convert-board-values-to-diagonals"
   (it "complete board to diagonals"
     (should= [[:o :x :x] [:o :x :x]]

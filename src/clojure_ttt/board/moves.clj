@@ -10,6 +10,10 @@
   (if-not (empty? moves)
     (get-x-or-o moves)))
 
+(defn get-next-player [moves]
+  (if (even? (count moves))
+    :x
+    :o))
 
 (defn update-moves [moves move]
   (if-not (some #(= move %) moves)
