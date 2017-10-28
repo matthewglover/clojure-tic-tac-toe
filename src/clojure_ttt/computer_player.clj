@@ -1,4 +1,4 @@
-(ns clojure-ttt.player.computer-player)
+(ns clojure-ttt.computer-player)
 
 (defn- contains-move [moves move]
   (some #(= move %) moves))

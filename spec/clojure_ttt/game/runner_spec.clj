@@ -1,6 +1,6 @@
 (ns clojure-ttt.game.runner-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.player.computer-player :as computer-player]
+            [clojure-ttt.computer-player :as computer-player]
             [clojure-ttt.game.runner :refer :all]))
 
 (describe "run-game"
