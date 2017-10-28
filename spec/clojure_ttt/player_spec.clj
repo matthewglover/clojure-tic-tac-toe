@@ -1,8 +1,7 @@
 (ns clojure-ttt.player-spec
   (:require [speclj.core :refer :all]
             [clojure-ttt.player :as player]
-            [clojure-ttt.player.computer-player :as computer-player]
-            [clojure-ttt.player.human-player :as human-player]))
+            [clojure-ttt.player.computer-player :as computer-player]))
 
 (describe "player/get-move"
   (around [it]
