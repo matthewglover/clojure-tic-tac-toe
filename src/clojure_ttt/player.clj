@@ -1,5 +1,5 @@
 (ns clojure-ttt.player
-  (:require [clojure-ttt.board.moves :refer [get-next-player]]
+  (:require [clojure-ttt.moves :refer [get-next-player]]
             [clojure-ttt.ui.human-player :as ui-human-player]
             [clojure-ttt.computer-player :as computer-player]))
 

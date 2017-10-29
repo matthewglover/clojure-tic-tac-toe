@@ -1,6 +1,6 @@
-(ns clojure-ttt.board.moves-spec
+(ns clojure-ttt.moves-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.board.moves :refer :all]))
+            [clojure-ttt.moves :refer :all]))
 
 (describe "get-last-player"
   (context "empty board"
