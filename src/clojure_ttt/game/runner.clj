@@ -5,8 +5,8 @@
             [clojure-ttt.ui.game :refer [print-result play-again?]]
             [clojure-ttt.ui.game-choice :refer [get-game-choice]]
             [clojure-ttt.moves :refer [update-moves]])
-  (:require clojure-ttt.game.status)
-  (:refer clojure-ttt.game.status :rename {over? game-over?}))
+  (:require clojure-ttt.moves)
+  (:refer clojure-ttt.moves :rename {over? game-over?}))
 
 (defn- run-next-move [game-state]
     (let [move (get-move game-state)
