@@ -1,6 +1,6 @@
-(ns clojure-ttt.ui.colours-spec
+(ns clojure-ttt.ui.helpers-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.ui.colours :refer :all]))
+            [clojure-ttt.ui.helpers :refer :all]))
 
 (describe "colourize"
   (it "colours text blue"

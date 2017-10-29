@@ -1,7 +1,7 @@
 (ns clojure-ttt.ui.board
   (:require [clojure.string :refer [join upper-case]] 
             [clojure-ttt.squares :refer [convert-moves-to-squares]]
-            [clojure-ttt.ui.colours :refer [blue green yellow reset]]))
+            [clojure-ttt.ui.helpers :refer [blue green yellow reset]]))
 
 (defn- add-row-dividers [row]
   (join "|" row))

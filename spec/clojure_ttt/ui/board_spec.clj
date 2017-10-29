@@ -1,7 +1,7 @@
 (ns clojure-ttt.ui.board-spec
   (:require [speclj.core :refer :all]
             [clojure-ttt.ui.board :refer :all]
-            [clojure-ttt.ui.colours :as colours]))
+            [clojure-ttt.ui.helpers :as colours]))
 
 
 (describe "format-square-data"

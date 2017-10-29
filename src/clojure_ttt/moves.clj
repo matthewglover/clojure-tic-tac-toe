@@ -26,6 +26,6 @@
 (defn board-full? [moves]
   (= 9 (count moves)))
 
-(defn over? [moves]
+(defn game-over? [moves]
   (or (winner? moves)
       (board-full? moves)))

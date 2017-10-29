@@ -4,9 +4,7 @@
             [clojure-ttt.ui.helpers :refer [clear-screen]]
             [clojure-ttt.ui.game :refer [print-result play-again?]]
             [clojure-ttt.ui.game-choice :refer [get-game-choice]]
-            [clojure-ttt.moves :refer [update-moves]])
-  (:require clojure-ttt.moves)
-  (:refer clojure-ttt.moves :rename {over? game-over?}))
+            [clojure-ttt.moves :refer [update-moves game-over?]]))
 
 (defn- run-next-move [game-state]
     (let [move (get-move game-state)

@@ -1,8 +1,6 @@
 (ns clojure-ttt.moves-spec
   (:require [speclj.core :refer :all]
-            [clojure-ttt.moves :refer :all]))
-
-(describe "get-last-player"
+            [clojure-ttt.moves :refer :all]))(describe "get-last-player"
   (context "empty board"
     (it "returns nil"
       (should= nil
@@ -65,15 +63,15 @@
   (it "is true for full board"
     (should (board-full? drawing-moves))))
 
-(describe "over?"
+(describe "game-over?"
   (it "is false for empty board"
-    (should-not (over? empty-moves)))
+    (should-not (game-over? empty-moves)))
 
   (it "is true for x-winning board"
-    (should (over? x-winning-row)))
+    (should (game-over? x-winning-row)))
 
   (it "is true for o-winning-row board"
-    (should (over? o-winning-row)))
+    (should (game-over? o-winning-row)))
 
   (it "is true for drawn board"
-    (should (over? drawing-moves))))
+    (should (game-over? drawing-moves))))
