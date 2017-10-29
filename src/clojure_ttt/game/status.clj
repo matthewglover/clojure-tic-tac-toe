@@ -1,5 +1,5 @@
 (ns clojure-ttt.game.status
-  (:require [clojure-ttt.board.data-converters :refer [get-lines-from-moves]]))
+  (:require [clojure-ttt.lines :refer [get-lines-from-moves]]))
 
 (defn get-first-winning-line [non-empty-lines]
   (first (filter #(apply = %) non-empty-lines)))

@@ -4,7 +4,7 @@
   (map #(last %) moves-with-indices))
 
 (defn- add-indices-to-moves [moves]
-  (map-indexed #(identity %&) moves))
+  (map-indexed vector moves))
 
 (defn filter-indexed-moves [predicate indexed-moves]
   (filter #(predicate (first %)) indexed-moves))
@@ -47,30 +47,4 @@
        convert-to-board-data
        (map last)
        (into [])))
-
-(defn convert-board-values-to-rows [board-values]
-  (partition 3 board-values))
-
-(defn convert-board-values-to-columns [board-values]
-  (let [column-start-indices (range 0 3)]
-    (map #(take-nth 3 (subvec board-values %)) column-start-indices)))
-
-(defn get-board-values-at-indices [board-values indices]
-  (map #(nth board-values %) indices))
-
-(defn convert-board-values-to-diagonals [board-values]
-  (let [tl-diagonal-indices (range 0 9 4)
-        tr-diagonal-indices (range 2 7 2)]
-    [(get-board-values-at-indices board-values tl-diagonal-indices)
-     (get-board-values-at-indices board-values tr-diagonal-indices)]))
-
-(defn convert-board-values-to-lines [board-values]
-  (mapcat identity [(convert-board-values-to-rows board-values)
-                    (convert-board-values-to-columns board-values)
-                    (convert-board-values-to-diagonals board-values)]))
-
-(defn get-lines-from-moves [moves]
-  (->> moves
-       convert-to-board-values
-       convert-board-values-to-lines))
 
