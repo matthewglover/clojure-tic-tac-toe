@@ -1,6 +1,6 @@
 (ns clojure-ttt.ui.board
   (:require [clojure.string :refer [join upper-case]] 
-            [clojure-ttt.board.data-converters :refer [convert-to-board-data]]
+            [clojure-ttt.squares :refer [convert-moves-to-squares]]
             [clojure-ttt.ui.colours :refer [blue green yellow reset]]))
 
 (defn- add-row-dividers [row]
@@ -30,7 +30,8 @@
 
 (defn format-board [moves]
   (->> moves
-       convert-to-board-data
+       convert-moves-to-squares
+       (map-indexed #(list (inc %1) %2))
        (map (partial format-square-data (last moves)))
        (map pad-square)
        (partition 3)
