@@ -1,7 +1,7 @@
-(ns clojure-ttt.game.runner-spec
+(ns clojure-ttt.app-spec
   (:require [speclj.core :refer :all]
             [clojure-ttt.computer-player :as computer-player]
-            [clojure-ttt.game.runner :refer :all]))
+            [clojure-ttt.app :refer :all]))
 
 (describe "run-game"
   (with-redefs [computer-player/get-move computer-player/get-move-directly]

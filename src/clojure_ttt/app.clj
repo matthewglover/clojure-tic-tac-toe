@@ -1,4 +1,4 @@
-(ns clojure-ttt.game.runner
+(ns clojure-ttt.app
   (:require [clojure-ttt.player :refer [get-move]]
             [clojure-ttt.ui.board :refer [print-board]]
             [clojure-ttt.ui.helpers :refer [clear-screen]]
