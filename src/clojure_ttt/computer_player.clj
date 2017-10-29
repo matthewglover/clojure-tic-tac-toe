@@ -1,10 +1,9 @@
-(ns clojure-ttt.computer-player)
+(ns clojure-ttt.computer-player
+  (:require [clojure-ttt.moves :refer [move-made?]]
+            [clojure-ttt.squares :refer [square-numbers]]))
 
-(defn- contains-move [moves move]
-  (some #(= move %) moves))
-
-(defn- available-moves [taken-moves]
-  (remove #(contains-move taken-moves %) (range 1 10)))
+(defn- available-moves [made-moves]
+  (remove (partial move-made? made-moves) square-numbers))
 
 (defn get-move-directly [moves]
   (first (available-moves moves)))

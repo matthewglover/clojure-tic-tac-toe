@@ -1,8 +1,10 @@
 (ns clojure-ttt.squares)
 
+(def square-numbers (range 1 10))
+
 (defn- filter-moves-by-index [predicate moves]
   (->> moves
-       (map-indexed vector)
+       (map-indexed list)
        (filter #(predicate (first %)))
        (map last)))
 
@@ -24,6 +26,5 @@
       (taken-by? :o) :o)))
 
 (defn convert-moves-to-squares [moves]
-  (let [square-numbers (range 1 10)
-        convert-to-value (partial convert-square-number-to-value moves)]
+  (let [convert-to-value (partial convert-square-number-to-value moves)]
     (map convert-to-value square-numbers)))

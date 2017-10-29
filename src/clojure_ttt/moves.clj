@@ -1,5 +1,5 @@
 (ns clojure-ttt.moves
-  (:require [clojure-ttt.lines :refer [get-lines-from-moves]]))
+  (:require [clojure-ttt.lines :refer [convert-moves-to-lines]]))
 
 (defn get-last-player [moves]
   (and (not-empty moves)
@@ -18,7 +18,7 @@
 
 (defn winner? [moves]
   (->> moves
-       get-lines-from-moves
+       convert-moves-to-lines
        (remove #(every? nil? %))
        (filter (partial apply =))
        ((comp first first))))

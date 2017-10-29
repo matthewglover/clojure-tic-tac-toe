@@ -19,9 +19,9 @@
               [:o :x :x] [:o :x :x]]
              (convert-squares-to-lines [:o :x :o :x :x :o :x :o :x]))))
 
-(describe "get-lines-from-moves"
+(describe "convert-moves-to-lines"
   (it "converts complete board to lines"
     (should= [[:o :x :o] [:x :x :o] [:x :o :x]
               [:o :x :x] [:x :x :o] [:o :o :x]
               [:o :x :x] [:o :x :x]]
-             (get-lines-from-moves [2 1 4 3 5 6 7 8 9]))))
+             (convert-moves-to-lines [2 1 4 3 5 6 7 8 9]))))
