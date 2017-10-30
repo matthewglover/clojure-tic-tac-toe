@@ -22,4 +22,9 @@
     (it "delays losing for as long as possible"
     ; See http://neverstopbuilding.com/minimax (Smart/Dumb example for visualisation)
       (should= 3
-               (get-move [2 7 6 8 9])))))
+               (get-move [2 7 6 8 9]))))
+  
+  (context "1 x 3\n4 5 x\no o x"
+    (it "setting search depth can affect result"
+      (should= 1
+               (get-move 0 [2 7 6 8 9])))))

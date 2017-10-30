@@ -23,26 +23,30 @@
 
 (declare mini-max)
 
-(defn next-move-scores [maximising? depth move-states]
-  (let [apply-mini-max (partial mini-max (not maximising?) (inc depth))]
+(defn next-move-scores [max-depth maximising? depth move-states]
+  (let [apply-mini-max (partial mini-max max-depth (not maximising?) (inc depth))]
     (map apply-mini-max move-states)))
 
-(defn best-move-state [maximising? depth move-states]
+(defn best-move-state [max-depth maximising? depth move-states]
   (let [winning-states (filter winner? move-states)]
     (cond
-      (not-empty winning-states) [(move-score maximising? depth) (first winning-states)]
-      (terminal-state? move-states) [draw-score (first move-states)]
-      :else (select-highest maximising? depth (next-move-scores maximising? depth move-states)))))
+        (not-empty winning-states) [(move-score maximising? depth) (first winning-states)]
+        (or (>= depth max-depth) 
+            (terminal-state? move-states)) [draw-score (first move-states)]
+        :else (select-highest maximising? depth (next-move-scores max-depth maximising? depth move-states)))))
 
 (defn mini-max 
-  ([moves] (mini-max true 0 moves))
+  ([max-depth moves] (mini-max max-depth true 0 moves))
 
-  ([maximising? depth moves]
+  ([max-depth maximising? depth moves]
     (->> moves
         available-moves
         (map (partial update-moves moves))
-        (best-move-state maximising? depth))))
+        (best-move-state max-depth maximising? depth))))
 
-(defn get-move [moves]
-  (let [[_ final-game-state] (mini-max moves)]
-    (nth final-game-state (count moves))))
+(defn get-move 
+  ([moves] (get-move 9 moves))
+  
+  ([max-depth moves]
+   (let [[_ final-game-state] (mini-max max-depth moves)]
+     (nth final-game-state (count moves)))))
