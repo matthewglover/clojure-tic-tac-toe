@@ -14,9 +14,9 @@
 (defn select-player-moves [player moves]
   (filter-moves-by-index (move-filter player) moves))
 
-(defn square-taken-by? [moves square player]
+(defn square-taken-by? [moves square-number player]
   (let [player-moves (select-player-moves player moves)
-        matches-square #(= % square)]
+        matches-square #(= % square-number)]
     (some matches-square player-moves)))
 
 (defn convert-square-number-to-value [moves square-number]

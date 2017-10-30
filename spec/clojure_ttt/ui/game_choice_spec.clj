@@ -31,7 +31,7 @@
 
 (describe "print-game-choices"
   (it "should print each choice"
-    (should= "Choose game type:\n(1) Human vs Human\n(2) Human vs Computer\n(3) Computer vs Human\n(4) Computer vs Computer\n"
+    (should-contain "Choose game type:\n(1) Human vs Human\n(2) Human vs Computer\n(3) Computer vs Human\n(4) Computer vs Computer\n"
              (with-out-str (print-game-choices game-types)))))
 
 (describe "prompt-for-game-choice"

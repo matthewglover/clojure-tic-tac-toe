@@ -17,14 +17,20 @@
        (update-moves (:moves game-state))
        (assoc game-state :moves)))
 
+(defn- display-current-game-state [state]
+  (clear-screen)
+  (print-board (:moves state)))
+
+(defn- display-final-game-state [state]
+  (print-result (:moves state)))
+
 (defn run-game [game-type]
   (loop [current-state (assoc game-type :moves [])]
-    (clear-screen)
-    (print-board (:moves current-state))
+    (display-current-game-state current-state)
     (let [updated-state (run-next-move current-state)]
       (if-not (game-over? (:moves updated-state))
         (recur updated-state)
-        (print-result (:moves updated-state))))))
+        (display-final-game-state updated-state)))))
 
 (defn run-app []
   (run-game (prompt-for-game-choice game-types))

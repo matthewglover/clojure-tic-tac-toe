@@ -27,12 +27,12 @@
     (str "(" game-number ") " (format-player player-x) " vs " (format-player player-o))))
 
 (defn print-game-choices [game-types]
+  (clear-screen)
   (println "Choose game type:")
   (doseq [[game-number game-type] (map-indexed #(vector (inc %1) %2) game-types)]
           (println (format-game-type game-number game-type))))
 
 (defn prompt-for-game-choice [game-types]
-  (clear-screen)
   (print-game-choices game-types)
   (loop [game-choice (choose-game game-types)]
     (if game-choice
