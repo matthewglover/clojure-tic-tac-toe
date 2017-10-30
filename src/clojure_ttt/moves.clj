@@ -1,5 +1,6 @@
 (ns clojure-ttt.moves
-  (:require [clojure-ttt.lines :refer [convert-moves-to-lines]]))
+  (:require [clojure-ttt.lines :refer [convert-moves-to-lines]]
+            [clojure-ttt.squares :refer [square-numbers]]))
 
 (defn get-last-player [moves]
   (and (not-empty moves)
@@ -29,3 +30,6 @@
 (defn game-over? [moves]
   (or (winner? moves)
       (board-full? moves)))
+
+(defn available-moves [made-moves]
+  (remove (partial move-made? made-moves) square-numbers))
