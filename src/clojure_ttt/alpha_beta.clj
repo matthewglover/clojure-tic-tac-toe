@@ -14,40 +14,47 @@
 (defmethod result-score :maximizing [_ depth] (- base-winning-score depth))
 (defmethod result-score :minimizing [_ depth] (+ base-losing-score depth))
 
-(defmulti move-score (fn [max-depth _ depth _ _ moves]
+(defmulti move-score (fn [max-depth _ depth _ moves]
   (cond
     (winner? moves) :winner
     (game-over? moves) :draw
     (>= depth max-depth) :draw
     :else :incomplete)))
 
-(defmethod move-score :winner [_ maximizing? depth _ _ moves] (result-score maximizing? depth))
+(defmethod move-score :winner [_ maximizing? depth _ moves] (result-score maximizing? depth))
 (defmethod move-score :draw [& _] draw-score)
-(defmethod move-score :incomplete [max-depth maximizing? depth alpha beta moves] 
+(defmethod move-score :incomplete [max-depth maximizing? depth [alpha beta] moves] 
   (let [next-maximizing? (not maximizing?)
-        [new-alpha new-beta _ :as res] (alpha-beta max-depth next-maximizing? (inc depth) alpha beta moves)]
+        next-depth (inc depth)
+        [new-alpha new-beta] (alpha-beta max-depth next-maximizing? next-depth alpha beta moves)]
     (if next-maximizing? new-alpha new-beta)))
 
 
 (defmulti update-alpha-beta (fn [maximizing? & _] (if maximizing? :alpha :beta)))
-(defmethod update-alpha-beta :alpha [_ score alpha beta] [(if (> score alpha) score alpha) beta])
-(defmethod update-alpha-beta :beta [_ score alpha beta] [alpha (if (< score beta) score beta)])
+(defmethod update-alpha-beta :alpha [_ score [alpha beta]] [(if (> score alpha) score alpha) beta])
+(defmethod update-alpha-beta :beta [_ score [alpha beta]] [alpha (if (< score beta) score beta)])
 
 
 (defmulti better-move? (fn [maximizing? & _] (if maximizing? :maximizing :minimizing)))
-(defmethod better-move? :maximizing [_ alpha _ new-score] (> new-score alpha))
-(defmethod better-move? :minimizing [_ _ beta new-score] (< new-score beta))
+(defmethod better-move? :maximizing [_ [alpha _] new-score] (> new-score alpha))
+(defmethod better-move? :minimizing [_ [_ beta] new-score] (< new-score beta))
 
 
-(defn choose-better-move [max-depth maximizing? depth [acc-alpha acc-beta acc-moves :as acc] next-moves]
-  (if (<= acc-beta acc-alpha)
-      acc
-      (let [new-score (move-score max-depth maximizing? depth acc-alpha acc-beta next-moves)
-            [new-alpha new-beta] (update-alpha-beta maximizing? new-score acc-alpha acc-beta)]
-        (cond
-          (nil? acc-moves) [new-alpha new-beta next-moves]
-          (better-move? maximizing? acc-alpha acc-beta new-score) [new-alpha new-beta next-moves]
-          :else acc))))
+(defn build-result [maximizing? current-result better-score better-moves]
+  (conj (update-alpha-beta maximizing? better-score current-result) better-moves))
+
+(defn should-update? [maximizing? acc new-score]
+  (or (nil? (last acc)) (better-move? maximizing? acc new-score)))
+
+
+(defmulti choose-better-move (fn [_ _ _ [acc-alpha acc-beta] _] (if (<= acc-beta acc-alpha) :dead-branch :compare)))
+(defmethod choose-better-move :dead-branch [_ _ _ acc & _] acc)
+(defmethod choose-better-move :compare [max-depth maximizing? depth acc next-moves]
+  (let [next-score (move-score max-depth maximizing? depth acc next-moves)]
+    (if (should-update? maximizing? acc next-score)
+      (build-result maximizing? acc next-score next-moves)
+      acc)))
+
 
 (defn alpha-beta
   ([max-depth moves] (alpha-beta max-depth true 0 default-alpha default-beta moves))
@@ -60,6 +67,7 @@
          available-moves
          (map update-moves)
          (reduce choose-better-move seed)))))
+
 
 (defn get-move
   ([moves] (get-move default-max-depth moves))

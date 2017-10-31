@@ -22,30 +22,30 @@
 (describe "move-score"
   (it "loser at depth two depth returns -8"
     (should= -8
-             (move-score 10 false 2 -100 100 [1 4 2 5 3])))
+             (move-score 10 false 2 [-100 100] [1 4 2 5 3])))
 
   (it "winner at depth two returns 8"
     (should= 8
-             (move-score 10 true 2 -100 100 [1 4 2 5 3])))
+             (move-score 10 true 2 [-100 100] [1 4 2 5 3])))
 
   (it "draw at any depth returns 0"
     (should= 0
-             (move-score 10 true 2 -100 100 [5 1 3 7 4 6 9 2 9]))))
+             (move-score 10 true 2 [-100 100] [5 1 3 7 4 6 9 2 9]))))
 
 (describe "better-move"
   (context "maximizing"
     (it "is better when new-score > alpha"
-        (should (better-move? true -10 10 10)))
+        (should (better-move? true [-10 10] 10)))
 
     (it "is not better when new-score < alpha"
-        (should-not (better-move? true 6 10 5))))
+        (should-not (better-move? true [6 10] 5))))
 
   (context "minimizing"
     (it "is better when new-score < beta"
-        (should (better-move? false -10 10 -10)))
+        (should (better-move? false [-10 10] -10)))
 
     (it "is not better when new-score > beta"
-        (should-not (better-move? false -10 -5 -1)))))
+        (should-not (better-move? false [-10 -5] -1)))))
 
 (describe "get-move"
   (context "\no o x\nx x o\no _ x\n"
