@@ -1,6 +1,6 @@
 (ns clojure-ttt.computer-player
-  (:require [clojure-ttt.mini-max :as mini-max]))
+  (:require [clojure-ttt.alpha-beta :as alpha-beta]))
 
 (defn get-move [moves]
   (Thread/sleep 500)
-  (mini-max/get-move 6 moves))
+  (alpha-beta/get-move 6 moves))
